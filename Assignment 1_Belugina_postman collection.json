@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "817abd2d-1684-427a-8555-3ec3c5d82551",
+		"name": "Assignment 1 Belugina",
+		"description": "Чек-лист проверок (для каждого пункта проверяем статус-код и тело ответа):\n\n1. Smoke test: валидный запрос с одним обязательным параметром\n    \n2. Валидный запрос с обязательным параметром, добавленным временем и опциональными параметрами.  \n    Единицы времени и опциональные параметры скомпанованы техникой попарного тестирования. [Гугл-таблица комбинаций параметров и значений](https://docs.google.com/spreadsheets/d/1rqdcb-HLGVBJg92IJJ9vqWCz6wB7ctR5pVDL_XZVk9E/edit?usp=sharing)  \n    Так, как нет информации о граничных значениях, в качестве единственного валидного класса эквивалентности использованы ноль и натуральные числа.  \n    Из класса эквивалентности тестируем 0, число в пределах 10-ти и числа с большим количеством разрядов, исходя из логики оперирования единицами времени в повседневной жизни. Например, для миллисекунд - 20 000, для секунд - 5 000, для дней - 765 и так далее.\n    \n3. Негативные проверки:\n    \n\n- отсутствие обязательного параметра\n    \n- ошибка в обязательном параметре\n    \n- неверный метод в сочетании с корректным эндпойнтом\n    \n- некорректный URL эндпойнта",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "39564568"
+	},
+	"item": [
+		{
+			"name": "Positive tests",
+			"item": [
+				{
+					"name": "Years & locale",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", () => {\r",
+									"    pm.expect(pm.response.text()).to.include(\"sum\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/add?timestamp=2023-09-06&years=0&locale",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"add"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "2023-09-06"
+								},
+								{
+									"key": "years",
+									"value": "0"
+								},
+								{
+									"key": "locale",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Months&format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", () => {\r",
+									"    pm.expect(pm.response.text()).to.include(\"sum\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/add?timestamp=2023-09-06&months=72&format",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"add"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "2023-09-06"
+								},
+								{
+									"key": "months",
+									"value": "72"
+								},
+								{
+									"key": "format",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Days&strict",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", () => {\r",
+									"    pm.expect(pm.response.text()).to.include(\"sum\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/add?timestamp=2023-09-06&days=0&strict",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"add"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "2023-09-06"
+								},
+								{
+									"key": "days",
+									"value": "0"
+								},
+								{
+									"key": "strict",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative tests",
+			"item": [
+				{
+					"name": "Required param is absent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", () => {\r",
+									"    pm.expect(pm.response.text()).to.include(\"level\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Error in required param",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", () => {\r",
+									"    pm.expect(pm.response.text()).to.include(\"level\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/add?timestamp=2023",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"add"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "2023"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong method",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", () => {\r",
+									"    pm.expect(pm.response.text()).to.include(\"level\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/add?timestamp=2023-09-06",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"add"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "2023-09-06"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong endpoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", () => {\r",
+									"    pm.expect(pm.response.text()).to.include(\"level\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/tim/add?timestamp=2023-09-06",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"tim",
+								"add"
+							],
+							"query": [
+								{
+									"key": "timestamp",
+									"value": "2023-09-06"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Smoke test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", () => {\r",
+							"    pm.expect(pm.response.text()).to.include(\"sum\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/add?timestamp=2024-12-16",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"add"
+					],
+					"query": [
+						{
+							"key": "timestamp",
+							"value": "2024-12-16"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
